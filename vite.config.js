@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     lib: {
-      entry: resolve("lib", "react-terminal-history/index.jsx"),
+      entry: resolve("lib", "index.jsx"),
       name: "ReactTerminalHistory",
       formats: ["es", "umd"],
       fileName: (format) => `react-terminal-history.${format}.js`,

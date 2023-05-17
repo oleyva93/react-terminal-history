@@ -1631,6 +1631,15 @@ react-terminal-history@^0.0.7:
     react-dom "^18.2.0"
     react-terminal-history "^0.0.4"
 
+react-terminal-history@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-terminal-history/-/react-terminal-history-0.1.0.tgz#8bb86e52a4d6c9cba21a15e99758ff3b99a352e7"
+  integrity sha512-j8c0+Ug9LWDseaZfMlamLmej7KDhhI3fVzwRGgSliSMcRUbK/aqm1Jr8WOi49sjOlyuCXGV+8A/v6pQKp8+4ww==
+  dependencies:
+    react "^18.2.0"
+    react-dom "^18.2.0"
+    react-terminal-history "^0.0.7"
+
 react@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"

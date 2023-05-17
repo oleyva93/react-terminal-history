@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { DownIcon, UpIcon } from "./components/icons";
 import useHighlight from "./hooks/useHighlight";
 import useScroll from "./hooks/useScroll";
+import "./index.css";
 
 /**
  * @typedef {Object} ReactTerminalHistoryProps
@@ -20,9 +21,10 @@ import useScroll from "./hooks/useScroll";
  * @constructor
  *
  * @example
- * import { fakeData } from "./fakeData";
  * import ReactTerminalHistory from "react-terminal-history/dist";
  *
+ * const fakeData = ["Line1", "Line2"];
+
  * function App() {
  *  return (
  *   <>
@@ -48,7 +50,7 @@ function ReactTerminalHistory({ data, title, classes, renderLine }) {
   }, [highlightedLogs.length, handleBottomScroll]);
 
   return (
-    <section className={` min-w-[550px] w-full ${classes?.container}`}>
+    <section className={`min-w-[550px] w-full ${classes?.container}`}>
       <header
         className={`grid grid-cols-2 bg-[#4b5563] rounded-t-lg gap-2 ${classes?.header} px-4 py-2 text-white`}
       >

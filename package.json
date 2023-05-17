@@ -24,7 +24,7 @@
     "url": "https://github.com/oleyva93/react-terminal-history/issues"
   },
   "homepage": "https://github.com/oleyva93/react-terminal-history#readme",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -35,7 +35,7 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-terminal-history": "^0.0.7"
+    "react-terminal-history": "^0.1.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
