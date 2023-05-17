@@ -1,10 +1,42 @@
+import { memo, useEffect } from "react";
 import PropTypes from "prop-types";
-import { DownIcon, UpIcon } from "./icons";
-import { useEffect } from "react";
+import { DownIcon, UpIcon } from "./components/icons";
 import useHighlight from "./hooks/useHighlight";
 import useScroll from "./hooks/useScroll";
 
-const ReactTerminalHistory = ({ data, title, classes }) => {
+/**
+ * @typedef {Object} ReactTerminalHistoryProps
+ * @property {string[]} data - Array of strings to be displayed
+ * @property {string} title - Title of the terminal
+ * @property {Object} classes - Classes to be applied to the terminal
+ * @property {string} classes.container - Classes to be applied to the terminal container
+ * @property {string} classes.header - Classes to be applied to the terminal header
+ * @property {string} classes.content - Classes to be applied to the terminal content
+ * @property {string} classes.input - Classes to be applied to the terminal input
+ * @property {function} renderLine - Function to render each terminal line
+ *
+ * @param {ReactTerminalHistoryProps} props
+ * @returns {JSX.Element}
+ * @constructor
+ *
+ * @example
+ * import { fakeData } from "./fakeData";
+ * import ReactTerminalHistory from "react-terminal-history/dist";
+ *
+ * function App() {
+ *  return (
+ *   <>
+ *    <div className="flex justify-center items-center h-screen p-20">
+ *      <ReactTerminalHistory data={fakeData} title="Logs" />
+ *    </div>
+ *   </>
+ *  );
+ * }
+ *
+ * export default App;
+ **/
+
+function ReactTerminalHistory({ data, title, classes, renderLine }) {
   const { isTop, ref, handleTopScroll, handleBottomScroll, hasScroll } =
     useScroll();
   const { highlightedLogs, matches, handleHighlight } = useHighlight(data);
@@ -62,18 +94,21 @@ const ReactTerminalHistory = ({ data, title, classes }) => {
               <div className="border-r border-[#a5a5a5] text-[#a5a5a5] flex justify-end item-end pr-3">
                 {index + 1}
               </div>
-              <div className="col-span-12 w-max hover:bg-[#464646]">{item}</div>
+              <div className="col-span-12 w-max hover:bg-[#464646]">
+                {renderLine?.(item) || item}
+              </div>
             </li>
           ))}
         </ul>
       </div>
     </section>
   );
-};
+}
 
-ReactTerminalHistory.propsTypes = {
+ReactTerminalHistory.propTypes = {
   data: PropTypes.arrayOf(PropTypes.string),
   title: PropTypes.node,
+  renderLine: PropTypes.func,
   classes: PropTypes.shape({
     container: PropTypes.string,
     header: PropTypes.string,
@@ -85,6 +120,7 @@ ReactTerminalHistory.propsTypes = {
 ReactTerminalHistory.defaultProps = {
   data: [],
   title: "History",
+  renderLine: null,
   classes: {
     container: "",
     header: "",
@@ -93,4 +129,8 @@ ReactTerminalHistory.defaultProps = {
   },
 };
 
-export default ReactTerminalHistory;
+ReactTerminalHistory.displayName = "ReactTerminalHistory";
+
+const MemoizedReactTerminalHistory = memo(ReactTerminalHistory);
+
+export default MemoizedReactTerminalHistory;

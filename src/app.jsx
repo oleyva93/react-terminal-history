@@ -1,11 +1,12 @@
 import { fakeData } from "./fakeData";
-import ReactTerminalHistory from "./react-terminal-history";
+import ReactTerminalHistory from "../lib/index.jsx";
+// import ReactTerminalHistory from "react-terminal-history";
 
 function App() {
   return (
     <>
       <div className="flex justify-center items-center h-screen p-20">
-        <ReactTerminalHistory data={fakeData} />
+        <ReactTerminalHistory data={fakeData} title="Logs" />
       </div>
     </>
   );

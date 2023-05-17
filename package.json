@@ -1,6 +1,30 @@
 {
   "name": "react-terminal-history",
-  "version": "0.0.0",
+  "description": "A Powerful Terminal Log Component for React Applications",
+  "author": "oleyva93",
+  "keywords": [
+    "react",
+    "logs",
+    "terminal",
+    "history",
+    "logger"
+  ],
+  "private": false,
+  "main": "dist/react-terminal-history.es.js",
+  "module": "dist/react-terminal-history.es.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oleyva93/react-terminal-history"
+  },
+  "bugs": {
+    "url": "https://github.com/oleyva93/react-terminal-history/issues"
+  },
+  "homepage": "https://github.com/oleyva93/react-terminal-history#readme",
+  "version": "0.0.8",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +34,8 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-terminal-history": "^0.0.7"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
@@ -24,5 +49,9 @@
     "postcss": "^8.4.23",
     "tailwindcss": "^3.3.2",
     "vite": "^4.3.2"
+  },
+  "peerDependencies": {
+    "react": "18.2.0 || >=18.x",
+    "react-dom": "18.2.0 || >=18.x"
   }
 }
