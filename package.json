@@ -24,7 +24,7 @@
     "url": "https://github.com/oleyva93/react-terminal-history/issues"
   },
   "homepage": "https://github.com/oleyva93/react-terminal-history#readme",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
