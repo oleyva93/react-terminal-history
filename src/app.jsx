@@ -1,6 +1,6 @@
 import { fakeData } from "./fakeData";
 import ReactTerminalHistory from "../lib/index.jsx";
-// import ReactTerminalHistory from "react-terminal-history";
+// import ReactTerminalHistory from "../dist/react-terminal-history.es";
 
 function App() {
   return (

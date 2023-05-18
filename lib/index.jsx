@@ -52,10 +52,12 @@ function ReactTerminalHistory({ data, title, classes, renderLine }) {
   return (
     <section className={`min-w-[550px] w-full ${classes?.container}`}>
       <header
-        className={`grid grid-cols-2 bg-[#4b5563] rounded-t-lg gap-2 ${classes?.header} px-4 py-2 text-white`}
+        className={`grid grid-cols-2 grid-flow-row-dense bg-[#4b5563] rounded-t-lg gap-2 ${classes?.header} px-4 py-2 text-white`}
       >
-        <div>{title}</div>
-        <div className="flex justify-end gap-3">
+        <div className="col-span-1 col-start-1 flex items-center text-base font-medium">
+          {title}
+        </div>
+        <div className="col-span-1 col-end-6 flex justify-end gap-3">
           {Boolean(matches) && (
             <div className="mr-[10px] flex items-center">
               Matches: {matches}
@@ -82,7 +84,7 @@ function ReactTerminalHistory({ data, title, classes, renderLine }) {
         </div>
       </header>
       <div
-        className={`grid rounded-b-lg bg-[#2b2928] ${classes?.content} h-[500px]`}
+        className={`grid rounded-b-lg bg-[#2b2928] ${classes?.content} h-[500px] py-1`}
       >
         <ul
           className="overflow-y-auto overflow-x-auto font-[15px] leading-[1.3]"

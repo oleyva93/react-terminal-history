@@ -24,7 +24,7 @@
     "url": "https://github.com/oleyva93/react-terminal-history/issues"
   },
   "homepage": "https://github.com/oleyva93/react-terminal-history#readme",
-  "version": "0.1.1",
+  "version": "0.1.4",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -33,9 +33,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-terminal-history": "^0.1.0"
+    "react": "18.2.0 || >=18.x",
+    "react-dom": "18.2.0 || >=18.x",
+    "react-terminal-history": "^0.1.2",
+    "vite-plugin-css-injected-by-js": "^3.1.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
@@ -51,7 +52,9 @@
     "vite": "^4.3.2"
   },
   "peerDependencies": {
+    "postcss": "^8.4.23 || >=8.x",
     "react": "18.2.0 || >=18.x",
-    "react-dom": "18.2.0 || >=18.x"
+    "react-dom": "18.2.0 || >=18.x",
+    "tailwindcss": "^3.3.2 || >=3.x"
   }
 }
