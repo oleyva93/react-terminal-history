@@ -49,6 +49,10 @@ export default App;
 | content   | string | false    | ''      | Classes to be applied to the terminal content   |
 | input     | string | false    | ''      | Classes to be applied to the terminal input     |
 
+## Demo
+
+[react-terminal-history-ac7k.vercel.app/](https://react-terminal-history-ac7k.vercel.app/)
+
 ## License
 
 MIT © [oleyva93](./LICENSE).
