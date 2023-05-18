@@ -1,8 +1,8 @@
-import { defineConfig } from "vite";
-import { resolve } from "node:path";
 import react from "@vitejs/plugin-react-swc";
-import * as packageJson from "./package.json";
+import { resolve } from "node:path";
+import { defineConfig } from "vite";
 import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
+import * as packageJson from "./package.json";
 
 // https://vitejs.dev/config/
 export default defineConfig({
