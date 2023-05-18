@@ -1,6 +1,6 @@
 {
   "name": "react-terminal-history",
-  "description": "A Powerful Terminal Log Component for React Applications",
+  "description": "A powerful terminal log component for React Applications",
   "author": "oleyva93",
   "keywords": [
     "react",
@@ -24,7 +24,7 @@
     "url": "https://github.com/oleyva93/react-terminal-history/issues"
   },
   "homepage": "https://github.com/oleyva93/react-terminal-history#readme",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
