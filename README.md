@@ -55,4 +55,4 @@ export default App;
 
 ## License
 
-MIT © [oleyva93](./LICENSE).
+React Terminal History is [MIT licensed](./LICENSE)..
