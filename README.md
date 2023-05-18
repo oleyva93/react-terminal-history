@@ -1,7 +1,7 @@
 # React Terminal History
 
 [![NPM Version](https://img.shields.io/npm/v/react-terminal-history.svg)](https://www.npmjs.com/package/react-terminal-history)
-[![License](https://img.shields.io/npm/l/react-terminal-history.svg)](https://github.com/oleyva93/react-terminal-history/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/oleyva93/react-terminal-history/blob/master/LICENSE)
 
 A Powerful Terminal Log Component for React Applications
 
