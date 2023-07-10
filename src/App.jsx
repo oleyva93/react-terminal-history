@@ -9,7 +9,6 @@ function App() {
   pattern-size-6 pattern-opacity-10"
     >
       <ReactTerminalHistory data={fakeData} title="Logs" />
-      <ReactTerminalHistory data={fakeData} title="Logs" />
     </div>
   );
 }
