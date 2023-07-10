@@ -89,17 +89,8 @@ function ReactTerminalHistory({ data, title, classes, renderLine }) {
             color="#c7c7c7"
             onClick={() => setShowOpen((prev) => !prev)}
           />
-        </div>
-      </header>
-      <div
-        className={`grid rounded-b-lg bg-[#2b2928] ${classes?.content} h-[500px] py-1`}
-      >
-        <ul
-          className="overflow-y-auto overflow-x-auto font-[15px] leading-[1.3]"
-          ref={ref}
-        >
           <div
-            className={`flex absolute gap-3 right-[5.3rem] bg-[#4b5563] p-1.5 rounded text-[#c7c7c7] w-max transition-opacity duration-200 ${
+            className={`flex absolute gap-3 bg-[#4b5563] p-1.5 mt-10 rounded opacity-75 hover:opacity-100 text-[#c7c7c7] w-max transition-opacity duration-200 ${
               showOpen ? "opacity-100" : "opacity-0"
             }`}
           >
@@ -122,7 +113,32 @@ function ReactTerminalHistory({ data, title, classes, renderLine }) {
               onClick={handleScrollDown}
             />
           </div>
-
+          {hasScroll && (
+            <div className="absolute bottom-[13rem] opacity-25 hover:opacity-100">
+              {isTop ? (
+                <DownIcon
+                  className="text-[29px] bg-[#4b5563] rounded-full cursor-pointer p-1"
+                  color="#c7c7c7"
+                  onClick={handleBottomScroll}
+                />
+              ) : (
+                <UpIcon
+                  className="text-[29px] bg-[#4b5563] rounded-full cursor-pointer p-1"
+                  color="#c7c7c7"
+                  onClick={handleTopScroll}
+                />
+              )}
+            </div>
+          )}
+        </div>
+      </header>
+      <div
+        className={`grid rounded-b-lg bg-[#2b2928] ${classes?.content} h-[500px] py-1`}
+      >
+        <ul
+          className="overflow-y-auto overflow-x-auto font-[15px] leading-[1.3]"
+          ref={ref}
+        >
           {highlightedLogs?.map((item, index) => {
             const positionColor =
               index === highlighIndexes[highlightPosition] ? "bg-red-400" : "";
@@ -144,23 +160,6 @@ function ReactTerminalHistory({ data, title, classes, renderLine }) {
           })}
         </ul>
       </div>
-      {hasScroll && (
-        <div className="absolute right-[5.3rem] bottom-[13rem] opacity-25 hover:opacity-100">
-          {isTop ? (
-            <DownIcon
-              className="text-[29px] bg-[#4b5563] rounded-full cursor-pointer p-1"
-              color="#c7c7c7"
-              onClick={handleBottomScroll}
-            />
-          ) : (
-            <UpIcon
-              className="text-[29px] bg-[#4b5563] rounded-full cursor-pointer p-1"
-              color="#c7c7c7"
-              onClick={handleTopScroll}
-            />
-          )}
-        </div>
-      )}
     </section>
   );
 }
