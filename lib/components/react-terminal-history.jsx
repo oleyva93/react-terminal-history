@@ -89,52 +89,35 @@ function ReactTerminalHistory({ data, title, classes, renderLine }) {
             color="#c7c7c7"
             onClick={() => setShowOpen((prev) => !prev)}
           />
-          <div
-            className={`flex absolute gap-3 bg-[#4b5563] p-1.5 mt-10 rounded text-[#c7c7c7] w-max transition-opacity duration-200 ${
-              showOpen ? "opacity-75 hover:opacity-100" : "opacity-0"
-            }`}
-          >
-            <input
-              placeholder="Search..."
-              className={`bg-[#464646] p-2 text-[#c7c7c7] h-[30px] border border-[#c7c7c7] !rounded placeholder:text-[#c7c7c7] focus:outline-none focus:ring focus:ring-[#7c7c7c] focus:border-[##7c7c7c] focus:w-[240px] ${classes?.input}}`}
-              onChange={handleHighlight}
-            />
-            <div className="mr-[10px] flex items-center select-none">
-              {highlightPosition + 1} of {matches}
-            </div>
-            <UpIcon
-              className="text-[29px] border border-[#c7c7c7] rounded cursor-pointer p-1"
-              color="#c7c7c7"
-              onClick={handleScrollUp}
-            />
-            <DownIcon
-              className="text-[29px] border border-[#c7c7c7] rounded cursor-pointer p-1"
-              color="#c7c7c7"
-              onClick={handleScrollDown}
-            />
-          </div>
-          {hasScroll && (
-            <div className="absolute bottom-[13rem] opacity-25 hover:opacity-100">
-              {isTop ? (
-                <DownIcon
-                  className="text-[29px] bg-[#4b5563] rounded-full cursor-pointer p-1"
-                  color="#c7c7c7"
-                  onClick={handleBottomScroll}
-                />
-              ) : (
-                <UpIcon
-                  className="text-[29px] bg-[#4b5563] rounded-full cursor-pointer p-1"
-                  color="#c7c7c7"
-                  onClick={handleTopScroll}
-                />
-              )}
-            </div>
-          )}
         </div>
       </header>
       <div
-        className={`grid rounded-b-lg bg-[#2b2928] ${classes?.content} h-[500px] py-1`}
+        className={`grid rounded-b-lg bg-[#2b2928] ${classes?.content} h-[500px] py-1 relative`}
       >
+        <div
+          className={`flex absolute right-5 top-1 gap-3 bg-[#4b5563] p-1.5 rounded text-[#c7c7c7] w-max transition-opacity duration-200 ${
+            showOpen ? "opacity-75 hover:opacity-100" : "opacity-0"
+          }`}
+        >
+          <input
+            placeholder="Search..."
+            className={`bg-[#464646] p-2 text-[#c7c7c7] h-[30px] border border-[#c7c7c7] !rounded placeholder:text-[#c7c7c7] focus:outline-none focus:ring focus:ring-[#7c7c7c] focus:border-[##7c7c7c] focus:w-[240px] ${classes?.input}}`}
+            onChange={handleHighlight}
+          />
+          <div className="mr-[10px] flex items-center select-none">
+            {matches ? highlightPosition + 1 : 0} of {matches}
+          </div>
+          <UpIcon
+            className="text-[29px] border border-[#c7c7c7] rounded cursor-pointer p-1"
+            color="#c7c7c7"
+            onClick={handleScrollUp}
+          />
+          <DownIcon
+            className="text-[29px] border border-[#c7c7c7] rounded cursor-pointer p-1"
+            color="#c7c7c7"
+            onClick={handleScrollDown}
+          />
+        </div>
         <ul
           className="overflow-y-auto overflow-x-auto font-[15px] leading-[1.3]"
           ref={ref}
@@ -159,6 +142,23 @@ function ReactTerminalHistory({ data, title, classes, renderLine }) {
             );
           })}
         </ul>
+        {hasScroll && (
+          <div className="absolute bottom-1 right-1 opacity-25 hover:opacity-100">
+            {isTop ? (
+              <DownIcon
+                className="text-[29px] bg-[#4b5563] rounded-full cursor-pointer p-1"
+                color="#c7c7c7"
+                onClick={handleBottomScroll}
+              />
+            ) : (
+              <UpIcon
+                className="text-[29px] bg-[#4b5563] rounded-full cursor-pointer p-1"
+                color="#c7c7c7"
+                onClick={handleTopScroll}
+              />
+            )}
+          </div>
+        )}
       </div>
     </section>
   );
