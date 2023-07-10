@@ -90,8 +90,8 @@ function ReactTerminalHistory({ data, title, classes, renderLine }) {
             onClick={() => setShowOpen((prev) => !prev)}
           />
           <div
-            className={`flex absolute gap-3 bg-[#4b5563] p-1.5 mt-10 rounded opacity-75 hover:opacity-100 text-[#c7c7c7] w-max transition-opacity duration-200 ${
-              showOpen ? "opacity-100" : "opacity-0"
+            className={`flex absolute gap-3 bg-[#4b5563] p-1.5 mt-10 rounded text-[#c7c7c7] w-max transition-opacity duration-200 ${
+              showOpen ? "opacity-75 hover:opacity-100" : "opacity-0"
             }`}
           >
             <input
