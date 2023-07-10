@@ -12,7 +12,7 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: resolve("lib", "index.jsx"),
+      entry: resolve("lib", "index.js"),
       name: "ReactTerminalHistory",
       formats: ["es"],
       fileName: (format) => `react-terminal-history.${format}.js`,

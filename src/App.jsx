@@ -1,5 +1,5 @@
 import { fakeData } from "./fake-data";
-import ReactTerminalHistory from "../lib/index.jsx";
+import ReactTerminalHistory from "../lib/index.js";
 import "./index.css";
 
 function App() {
