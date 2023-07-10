@@ -143,7 +143,7 @@ function ReactTerminalHistory({ data, title, classes, renderLine }) {
           })}
         </ul>
         {hasScroll && (
-          <div className="absolute bottom-1 right-1 opacity-25 hover:opacity-100">
+          <div className="absolute bottom-1 right-5 opacity-25 hover:opacity-100">
             {isTop ? (
               <DownIcon
                 className="text-[29px] bg-[#4b5563] rounded-full cursor-pointer p-1"
