@@ -120,7 +120,10 @@ function ReactTerminalHistory({ data, title, classes, renderLine }) {
           <input
             placeholder="Search..."
             className={`bg-[#464646] p-2 text-[#c7c7c7] h-[30px] border border-[#c7c7c7] !rounded placeholder:text-[#c7c7c7] focus:outline-none focus:ring focus:ring-[#7c7c7c] focus:border-[##7c7c7c] focus:w-[240px] ${classes?.input}}`}
-            onChange={handleHighlight}
+            onChange={(e) => {
+              setHighlightPosition(0);
+              handleHighlight(e);
+            }}
             onKeyDown={handleKeyDown}
           />
           <div className="mr-[10px] flex items-center select-none">
