@@ -1,6 +1,9 @@
 import { Fragment } from "react";
 
-export const isMac = navigator.userAgent.indexOf("Mac OS X") != -1;
+export const isMac =
+  typeof window !== "undefined"
+    ? navigator.userAgent.indexOf("Mac OS X") != -1
+    : false;
 
 export const doHighlight = (data, value) => {
   let highlightIndex = [];
