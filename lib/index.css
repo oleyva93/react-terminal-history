@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.tooltip-arrow {
+    clip-path: polygon(100% 100%, 0 100%, 50% 0);
+    width: 13px;
+    height: 10px;
+    position: absolute;
+    bottom: 23px;
+    left: 90px;
+}

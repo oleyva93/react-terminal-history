@@ -1,9 +1,16 @@
 import { memo, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { DownIcon, OptionsIcon, UpIcon } from "./icons";
+import {
+  ControlIcon,
+  DownIcon,
+  MacCommandIcon,
+  OptionsIcon,
+  UpIcon,
+} from "./icons";
 import useHighlight from "../hooks/useHighlight";
 import useScroll from "../hooks/useScroll";
 import useEvent from "../hooks/useEvent";
+import Tooltip from "./tooltip";
 
 /**
  * @typedef {Object} ReactTerminalHistoryProps
@@ -69,6 +76,17 @@ function ReactTerminalHistory({ data, title, classes, renderLine }) {
     }
   });
 
+  const handleKeyDown = useEvent((event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      if (event.metaKey || event.ctrlKey) {
+        handleScrollUp();
+      } else {
+        handleScrollDown();
+      }
+    }
+  });
+
   useEffect(() => {
     if (highlightedLogs.length) {
       handleBottomScroll();
@@ -103,20 +121,38 @@ function ReactTerminalHistory({ data, title, classes, renderLine }) {
             placeholder="Search..."
             className={`bg-[#464646] p-2 text-[#c7c7c7] h-[30px] border border-[#c7c7c7] !rounded placeholder:text-[#c7c7c7] focus:outline-none focus:ring focus:ring-[#7c7c7c] focus:border-[##7c7c7c] focus:w-[240px] ${classes?.input}}`}
             onChange={handleHighlight}
+            onKeyDown={handleKeyDown}
           />
           <div className="mr-[10px] flex items-center select-none">
             {matches ? highlightPosition + 1 : 0} of {matches}
           </div>
-          <UpIcon
-            className="text-[29px] border border-[#c7c7c7] rounded cursor-pointer p-1"
-            color="#c7c7c7"
-            onClick={handleScrollUp}
-          />
-          <DownIcon
-            className="text-[29px] border border-[#c7c7c7] rounded cursor-pointer p-1"
-            color="#c7c7c7"
-            onClick={handleScrollDown}
-          />
+          <Tooltip
+            message={
+              <div className="flex items-center gap-1 text-xs">
+                Previous Match (
+                <ControlIcon color="#4b5563" className="-ml-1" /> + Enter)
+              </div>
+            }
+          >
+            <UpIcon
+              className="text-[29px] border border-[#c7c7c7] rounded cursor-pointer p-1"
+              color="#c7c7c7"
+              onClick={handleScrollUp}
+            />
+          </Tooltip>
+          <Tooltip
+            message={
+              <div className="flex items-center gap-1 text-xs">
+                Next Match (Enter)
+              </div>
+            }
+          >
+            <DownIcon
+              className="text-[29px] border border-[#c7c7c7] rounded cursor-pointer p-1"
+              color="#c7c7c7"
+              onClick={handleScrollDown}
+            />
+          </Tooltip>
         </div>
         <ul
           className="overflow-y-auto overflow-x-auto font-[15px] leading-[1.3]"
