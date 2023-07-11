@@ -18,7 +18,7 @@ const Tooltip = ({ children, message }) => {
       onMouseLeave={handleMouseLeave}
     >
       <div
-        className={`absolute select-none top-10 -left-20 p-[4px_15px] rounded bg-[#c7c7c7] !text-[#4b5563] w-max transition-opacity duration-200 ${
+        className={`absolute select-none pointer-events-none top-10 -left-20 p-[4px_15px] rounded bg-[#c7c7c7] !text-[#4b5563] w-max transition-opacity duration-200 ${
           isHovered ? "hover:opacity-100" : "opacity-0"
         }`}
       >
