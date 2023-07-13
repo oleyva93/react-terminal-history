@@ -33,12 +33,15 @@ export default App;
 
 ## Props
 
-| Name       | Type    | Required | Default | Description                           |
-| ---------- | ------- | -------- | ------- | ------------------------------------- |
-| data       | array   | false    | []      | Array of strings to be displayed      |
-| classes    | objects | false    | {}      | Classes to be applied to the terminal |
-| title      | string  | false    | ""      | Title of the terminal                 |
-| renderLine | func    | false    | null    | Function to render each terminal line |
+| Name            | Type    | Required | Default            | Description                           |
+| --------------- | ------- | -------- | ------------------ | ------------------------------------- |
+| data            | array   | false    | []                 | Array of strings to be displayed      |
+| classes         | objects | false    | {}                 | Classes to be applied to the terminal |
+| title           | string  | false    | ""                 | Title of the terminal                 |
+| renderLine      | func    | false    | null               | Function to render each terminal line |
+| showSkeleton    | bool    | false    | false              | Show skeleton while is scrolling      |
+| loading         | bool    | false    | false              | Show loading element while load data  |
+| notFoundContent | string  | node     | "No history found" | Not found content                     |
 
 ## Classes Keys
 

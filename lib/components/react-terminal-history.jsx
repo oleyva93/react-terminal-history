@@ -1,14 +1,15 @@
 import { memo, useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { AutoSizer, List } from "react-virtualized";
+
 import {
   ControlIcon,
   DownIcon,
-  MacCommandIcon,
+  LoadingIcon,
   OptionsIcon,
   UpIcon,
 } from "./icons";
 import useHighlight from "../hooks/useHighlight";
-import useScroll from "../hooks/useScroll";
 import useEvent from "../hooks/useEvent";
 import Tooltip from "./tooltip";
 
@@ -45,34 +46,33 @@ import Tooltip from "./tooltip";
  * export default App;
  **/
 
-function ReactTerminalHistory({ data, title, classes, renderLine }) {
+function ReactTerminalHistory({
+  data,
+  title,
+  classes,
+  renderLine,
+  showSkeleton,
+  notFoundContent,
+  loading,
+}) {
   const [highlightPosition, setHighlightPosition] = useState(0);
   const [showOpen, setShowOpen] = useState(false);
+  const [scrollToIndex, setScrollToIndex] = useState(0);
 
-  const { isTop, ref, handleTopScroll, handleBottomScroll, hasScroll } =
-    useScroll();
   const { highlightedLogs, matches, handleHighlight, highlighIndexes } =
     useHighlight(data);
 
   const handleScrollDown = useEvent(() => {
     if (highlighIndexes[highlightPosition + 1]) {
       setHighlightPosition((prev) => prev + 1);
-      scrollToVisibleElement(highlighIndexes[highlightPosition + 1]);
+      setScrollToIndex(highlighIndexes[highlightPosition + 1]);
     }
   });
 
   const handleScrollUp = useEvent(() => {
     if (highlighIndexes[highlightPosition] && highlightPosition > 0) {
       setHighlightPosition((prev) => prev - 1);
-      scrollToVisibleElement(highlighIndexes[highlightPosition - 1]);
-    }
-  });
-
-  const scrollToVisibleElement = useEvent((idx) => {
-    const container = ref.current;
-    const element = container.children[idx];
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      setScrollToIndex(highlighIndexes[highlightPosition - 1]);
     }
   });
 
@@ -89,9 +89,9 @@ function ReactTerminalHistory({ data, title, classes, renderLine }) {
 
   useEffect(() => {
     if (highlightedLogs.length) {
-      handleBottomScroll();
+      setScrollToIndex(highlightedLogs.length - 1);
     }
-  }, [highlightedLogs.length, handleBottomScroll]);
+  }, [highlightedLogs.length, setScrollToIndex]);
 
   return (
     <section className={`min-w-[550px] w-full ${classes?.container}`}>
@@ -113,7 +113,7 @@ function ReactTerminalHistory({ data, title, classes, renderLine }) {
         className={`grid rounded-b-lg bg-[#2b2928] ${classes?.content} h-[500px] py-1 relative`}
       >
         <div
-          className={`flex absolute right-5 top-1 gap-3 bg-[#4b5563] p-1.5 rounded text-[#c7c7c7] w-max transition-opacity duration-200 ${
+          className={`flex z-50 absolute right-5 top-1 gap-3 bg-[#4b5563] p-1.5 rounded text-[#c7c7c7] w-max transition-opacity duration-200 ${
             showOpen ? "opacity-75 hover:opacity-100" : "opacity-0"
           }`}
         >
@@ -157,47 +157,70 @@ function ReactTerminalHistory({ data, title, classes, renderLine }) {
             />
           </Tooltip>
         </div>
-        <ul
-          className="overflow-y-auto overflow-x-auto font-[15px] leading-[1.3]"
-          ref={ref}
-        >
-          {highlightedLogs?.map((item, index) => {
-            const positionColor =
-              index === highlighIndexes[highlightPosition] ? "bg-red-400" : "";
-            return (
-              <li
-                key={index}
-                className="container mx-[19px] grid grid-cols-[repeat(16,50px)] gap-3 text-white"
-              >
-                <div className="border-r border-[#a5a5a5] text-[#a5a5a5] flex justify-end item-end pr-3">
-                  {index + 1}
+        <AutoSizer>
+          {({ width, height }) => (
+            <List
+              containerStyle={{ overflowX: "auto" }}
+              width={width}
+              height={height}
+              rowCount={data.length}
+              rowHeight={22}
+              scrollToIndex={scrollToIndex}
+              noRowsRenderer={() => (
+                <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] text-[15px] font-medium text-white">
+                  {loading ? <LoadingIcon /> : notFoundContent}
                 </div>
-                <div
-                  className={`col-span-12 w-max hover:bg-[#464646] ${positionColor}`}
-                >
-                  {renderLine?.(item) || item}
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-        {hasScroll && (
-          <div className="absolute bottom-1 right-5 opacity-25 hover:opacity-100">
-            {isTop ? (
-              <DownIcon
-                className="text-[29px] bg-[#4b5563] rounded-full cursor-pointer p-1"
-                color="#c7c7c7"
-                onClick={handleBottomScroll}
-              />
-            ) : (
-              <UpIcon
-                className="text-[29px] bg-[#4b5563] rounded-full cursor-pointer p-1"
-                color="#c7c7c7"
-                onClick={handleTopScroll}
-              />
-            )}
-          </div>
-        )}
+              )}
+              rowRenderer={({ key, index, isVisible, style }) => {
+                const showLoading = !isVisible && showSkeleton;
+                const positionColor =
+                  index === highlighIndexes[highlightPosition]
+                    ? "bg-red-400"
+                    : "";
+                return (
+                  <li
+                    style={style}
+                    key={key}
+                    className="container mx-[19px] grid grid-cols-[repeat(16,50px)] gap-3 text-white"
+                  >
+                    <div className="border-r border-[#a5a5a5] text-[#a5a5a5] flex justify-end item-end pr-[8px] w-[55px]">
+                      {!showLoading ? (
+                        index + 1
+                      ) : (
+                        <div className="h-2.5 bg-gray-600 rounded-full w-52 mb-4 mt-2" />
+                      )}
+                    </div>
+                    <div
+                      className={`col-span-12 w-max hover:bg-[#464646] ${positionColor}`}
+                    >
+                      {!showLoading ? (
+                        renderLine?.(highlightedLogs[index]) ||
+                        highlightedLogs[index]
+                      ) : (
+                        <div className="h-2.5 bg-gray-600 rounded-full w-[600px] mb-4 mt-2" />
+                      )}
+                    </div>
+                  </li>
+                );
+              }}
+            />
+          )}
+        </AutoSizer>
+        <div className="absolute z-50 bottom-1 right-5 opacity-25 hover:opacity-100">
+          {!scrollToIndex ? (
+            <DownIcon
+              className="text-[29px] bg-[#4b5563] rounded-full cursor-pointer p-1"
+              color="#c7c7c7"
+              onClick={() => setScrollToIndex(highlightedLogs.length - 1)}
+            />
+          ) : (
+            <UpIcon
+              className="text-[29px] bg-[#4b5563] rounded-full cursor-pointer p-1"
+              color="#c7c7c7"
+              onClick={() => setScrollToIndex(0)}
+            />
+          )}
+        </div>
       </div>
     </section>
   );
@@ -206,7 +229,10 @@ function ReactTerminalHistory({ data, title, classes, renderLine }) {
 ReactTerminalHistory.propTypes = {
   data: PropTypes.arrayOf(PropTypes.string),
   title: PropTypes.node,
+  showSkeleton: PropTypes.bool,
+  loading: PropTypes.bool,
   renderLine: PropTypes.func,
+  notFoundContent: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   classes: PropTypes.shape({
     container: PropTypes.string,
     header: PropTypes.string,
@@ -219,6 +245,9 @@ ReactTerminalHistory.defaultProps = {
   data: [],
   title: "History",
   renderLine: null,
+  showSkeleton: false,
+  loading: false,
+  notFoundContent: "No history found",
   classes: {
     container: "",
     header: "",

@@ -24,7 +24,7 @@
     "url": "https://github.com/oleyva93/react-terminal-history/issues"
   },
   "homepage": "https://github.com/oleyva93/react-terminal-history#readme",
-  "version": "1.1.4",
+  "version": "1.2.3",
   "type": "module",
   "scripts": {
     "dev": "vite --config vite.config.site.js",
@@ -38,6 +38,7 @@
     "react": "18.2.0 || >=18.x",
     "react-dom": "18.2.0 || >=18.x",
     "react-terminal-history": "^0.1.2",
+    "react-virtualized": "^9.22.5",
     "vite-plugin-css-injected-by-js": "^3.1.1"
   },
   "devDependencies": {
