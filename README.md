@@ -41,7 +41,8 @@ export default App;
 | renderLine      | func    | false    | null               | Function to render each terminal line |
 | showSkeleton    | bool    | false    | false              | Show skeleton while is scrolling      |
 | loading         | bool    | false    | false              | Show loading element while load data  |
-| notFoundContent | string  | node     | "No history found" | Not found content                     |
+| notFoundContent | string  | false    | "No history found" | Not found content                     |
+| optionIcon      | node    | false    | undefined          | Option icon                           |
 
 ## Classes Keys
 

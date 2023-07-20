@@ -23,6 +23,7 @@ import Tooltip from "./tooltip";
  * @property {string} classes.content - Classes to be applied to the terminal content
  * @property {string} classes.input - Classes to be applied to the terminal input
  * @property {function} renderLine - Function to render each terminal line
+ * @property {JSX.Element} optionIcon - Option icon
  *
  * @param {ReactTerminalHistoryProps} props
  * @returns {JSX.Element}
@@ -54,6 +55,7 @@ function ReactTerminalHistory({
   showSkeleton,
   notFoundContent,
   loading,
+  optionIcon,
 }) {
   const [highlightPosition, setHighlightPosition] = useState(0);
   const [showOpen, setShowOpen] = useState(false);
@@ -101,12 +103,13 @@ function ReactTerminalHistory({
         <div className="col-span-1 col-start-1 flex items-center text-base font-medium">
           {title}
         </div>
-        <div className="col-span-1 col-end-6 flex justify-end gap-3">
-          <OptionsIcon
-            className="text-[29px] cursor-pointer p-1"
-            color="#c7c7c7"
-            onClick={() => setShowOpen((prev) => !prev)}
-          />
+        <div
+          className="col-span-1 col-end-6 flex cursor-pointer justify-end gap-3"
+          onClick={() => setShowOpen((prev) => !prev)}
+        >
+          {optionIcon ?? (
+            <OptionsIcon className="text-[29px] p-1" color="#c7c7c7" />
+          )}
         </div>
       </header>
       <div
@@ -233,6 +236,7 @@ ReactTerminalHistory.propTypes = {
   loading: PropTypes.bool,
   renderLine: PropTypes.func,
   notFoundContent: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  optionIcon: PropTypes.node,
   classes: PropTypes.shape({
     container: PropTypes.string,
     header: PropTypes.string,
@@ -254,6 +258,7 @@ ReactTerminalHistory.defaultProps = {
     content: "",
     input: "",
   },
+  optionIcon: null,
 };
 
 ReactTerminalHistory.displayName = "ReactTerminalHistory";
