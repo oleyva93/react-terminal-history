@@ -12,6 +12,8 @@ import {
 import useHighlight from "../hooks/useHighlight";
 import useEvent from "../hooks/useEvent";
 import Tooltip from "./tooltip";
+import { colors } from "../theme";
+import ListItem from "./list-item";
 
 /**
  * @typedef {Object} ReactTerminalHistoryProps
@@ -98,9 +100,9 @@ function ReactTerminalHistory({
   return (
     <section className={`min-w-[550px] w-full ${classes?.container}`}>
       <header
-        className={`grid grid-cols-2 grid-flow-row-dense bg-[#4b5563] rounded-t-lg gap-2 ${classes?.header} px-4 py-2 text-white`}
+        className={`grid grid-cols-2 grid-flow-row-dense bg-base rounded-t-lg gap-2 ${classes?.header} px-4 py-2`}
       >
-        <div className="col-span-1 col-start-1 flex items-center text-base font-medium">
+        <div className="col-span-1 col-start-1 flex items-center text-base font-medium text-white">
           {title}
         </div>
         <div
@@ -108,21 +110,21 @@ function ReactTerminalHistory({
           onClick={() => setShowOpen((prev) => !prev)}
         >
           {optionIcon ?? (
-            <OptionsIcon className="text-[29px] p-1" color="#c7c7c7" />
+            <OptionsIcon className="text-[29px] p-1" color={colors.option} />
           )}
         </div>
       </header>
-      <div
-        className={`grid rounded-b-lg bg-[#2b2928] ${classes?.content} h-[500px] py-1 relative`}
+      <main
+        className={`grid rounded-b-lg bg-main ${classes?.content} h-[500px] py-1 relative`}
       >
-        <div
-          className={`flex z-50 absolute right-5 top-1 gap-3 bg-[#4b5563] p-1.5 rounded text-[#c7c7c7] w-max transition-opacity duration-200 ${
+        <aside
+          className={`flex z-50 absolute right-5 top-1 gap-3 bg-base p-1.5 rounded text-option w-max transition-opacity duration-200 ${
             showOpen ? "opacity-75 hover:opacity-100" : "opacity-0"
           }`}
         >
           <input
             placeholder="Search..."
-            className={`bg-[#464646] p-2 text-[#c7c7c7] h-[30px] border border-[#c7c7c7] !rounded placeholder:text-[#c7c7c7] focus:outline-none focus:ring focus:ring-[#7c7c7c] focus:border-[##7c7c7c] focus:w-[240px] ${classes?.input}}`}
+            className={`bg-secondary p-2 text-option h-[30px] border border-option !rounded placeholder:text-option focus:outline-none focus:ring focus:ring-[#7c7c7c] focus:border-[##7c7c7c] focus:w-[240px] ${classes?.input}}`}
             onChange={(e) => {
               setHighlightPosition(0);
               handleHighlight(e);
@@ -141,8 +143,8 @@ function ReactTerminalHistory({
             }
           >
             <UpIcon
-              className="text-[29px] border border-[#c7c7c7] rounded cursor-pointer p-1"
-              color="#c7c7c7"
+              className="text-[29px] border border-option rounded cursor-pointer p-1"
+              color={colors.option}
               onClick={handleScrollUp}
             />
           </Tooltip>
@@ -154,12 +156,12 @@ function ReactTerminalHistory({
             }
           >
             <DownIcon
-              className="text-[29px] border border-[#c7c7c7] rounded cursor-pointer p-1"
-              color="#c7c7c7"
+              className="text-[29px] border border-option rounded cursor-pointer p-1"
+              color={colors.option}
               onClick={handleScrollDown}
             />
           </Tooltip>
-        </div>
+        </aside>
         <AutoSizer>
           {({ width, height }) => (
             <List
@@ -175,56 +177,42 @@ function ReactTerminalHistory({
                 </div>
               )}
               rowRenderer={({ key, index, isVisible, style }) => {
-                const showLoading = !isVisible && showSkeleton;
-                const positionColor =
-                  index === highlighIndexes[highlightPosition]
-                    ? "bg-red-400"
-                    : "";
                 return (
-                  <li
-                    style={style}
+                  <ListItem
                     key={key}
-                    className="container mx-[19px] grid grid-cols-[repeat(16,50px)] gap-3 text-white"
-                  >
-                    <div className="border-r border-[#a5a5a5] text-[#a5a5a5] flex justify-end item-end pr-[8px] w-[55px]">
-                      {!showLoading ? (
-                        index + 1
-                      ) : (
-                        <div className="h-2.5 bg-gray-600 rounded-full w-52 mb-4 mt-2" />
-                      )}
-                    </div>
-                    <div
-                      className={`col-span-12 w-max hover:bg-[#464646] ${positionColor}`}
-                    >
-                      {!showLoading ? (
-                        renderLine?.(highlightedLogs[index]) ||
-                        highlightedLogs[index]
-                      ) : (
-                        <div className="h-2.5 bg-gray-600 rounded-full w-[600px] mb-4 mt-2" />
-                      )}
-                    </div>
-                  </li>
+                    index={index}
+                    isVisible={isVisible}
+                    style={style}
+                    showSkeleton={showSkeleton}
+                    positionColor={
+                      index === highlighIndexes[highlightPosition]
+                        ? "bg-red-400"
+                        : ""
+                    }
+                    highlightedLogs={highlightedLogs[index]}
+                    renderLine={renderLine}
+                  />
                 );
               }}
             />
           )}
         </AutoSizer>
-        <div className="absolute z-50 bottom-1 right-5 opacity-25 hover:opacity-100">
+        <footer className="absolute z-50 bottom-2 right-5 opacity-25 hover:opacity-100">
           {!scrollToIndex ? (
             <DownIcon
-              className="text-[29px] bg-[#4b5563] rounded-full cursor-pointer p-1"
-              color="#c7c7c7"
+              className="text-[29px] bg-base rounded-full cursor-pointer p-1"
+              color={colors.option}
               onClick={() => setScrollToIndex(highlightedLogs.length - 1)}
             />
           ) : (
             <UpIcon
-              className="text-[29px] bg-[#4b5563] rounded-full cursor-pointer p-1"
-              color="#c7c7c7"
+              className="text-[29px] bg-base rounded-full cursor-pointer p-1"
+              color={colors.option}
               onClick={() => setScrollToIndex(0)}
             />
           )}
-        </div>
-      </div>
+        </footer>
+      </main>
     </section>
   );
 }
