@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 import ReactTerminalHistory from "../lib/index.js";
 import "./index.css";
 
+/**
+ * Custom hook to load data from https://www.ag-grid.com/example-assets/olympic-winners.json
+ * and format it for display.
+ *
+ * @returns {Object} An object containing the loaded data and a loading flag.
+ */
 const useLoadData = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -11,6 +17,7 @@ const useLoadData = () => {
     fetch("https://www.ag-grid.com/example-assets/olympic-winners.json")
       .then((res) => res.json())
       .then((data) => {
+        // clone some data to make it bigger and test the virtualization
         const dataFake = [
           ...data,
           ...data,
