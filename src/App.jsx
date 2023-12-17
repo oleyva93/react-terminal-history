@@ -58,7 +58,6 @@ function App() {
         loading={loading}
         data={data}
         title="Logs"
-        showSkeleton
       />
     </div>
   );
