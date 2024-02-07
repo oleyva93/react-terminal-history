@@ -98,7 +98,7 @@ function ReactTerminalHistory({
   }, [highlightedLogs.length, setScrollToIndex]);
 
   return (
-    <section className={`min-w-[550px] w-full ${classes?.container}`}>
+    <section className={`w-full ${classes?.container}`}>
       <header
         className={`grid grid-cols-2 grid-flow-row-dense bg-base rounded-t-lg gap-2 ${classes?.header} px-4 py-2`}
       >
