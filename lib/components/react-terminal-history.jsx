@@ -191,6 +191,7 @@ function ReactTerminalHistory({
                     }
                     highlightedLogs={highlightedLogs[index]}
                     renderLine={renderLine}
+                    className={classes?.item}
                   />
                 );
               }}
@@ -230,6 +231,7 @@ ReactTerminalHistory.propTypes = {
     header: PropTypes.string,
     content: PropTypes.string,
     input: PropTypes.string,
+    item: PropTypes.string,
   }),
 };
 
@@ -245,6 +247,7 @@ ReactTerminalHistory.defaultProps = {
     header: "",
     content: "",
     input: "",
+    item: "",
   },
   optionIcon: null,
 };

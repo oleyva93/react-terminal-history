@@ -24,13 +24,14 @@
     "url": "https://github.com/oleyva93/react-terminal-history/issues"
   },
   "homepage": "https://github.com/oleyva93/react-terminal-history#readme",
-  "version": "1.2.4",
+  "version": "1.2.14",
   "type": "module",
   "scripts": {
     "dev": "vite --config vite.config.site.js",
+    "copy:types": "cp react-terminal-history.es.d.ts dist/",
     "build:site": "vite build --config vite.config.site.js",
     "build:package": "vite build --config vite.config.publish.js",
-    "build:publish": "vite build --config vite.config.publish.js && npm publish --access public",
+    "build:publish": "vite build --config vite.config.publish.js && npm run copy:types && npm publish --access public",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },

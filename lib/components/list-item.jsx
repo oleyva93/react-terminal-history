@@ -11,6 +11,7 @@ const ListItem = ({
   positionColor,
   highlightedLogs,
   renderLine,
+  className,
 }) => {
   const showLoading = !isVisible && showSkeleton;
   return (
@@ -26,7 +27,9 @@ const ListItem = ({
           <div className="h-2.5 bg-gray-600 rounded-full w-52 mb-4 mt-2" />
         )}
       </div>
-      <div className={`col-span-12 w-max hover:bg-secondary ${positionColor}`}>
+      <div
+        className={`col-span-12 w-max hover:bg-secondary ${className} ${positionColor}`}
+      >
         {!showLoading ? (
           renderLine?.(highlightedLogs) || highlightedLogs
         ) : (
@@ -46,6 +49,7 @@ ListItem.propTypes = {
   highlightedLogs: PropTypes.string.isRequired,
   renderLine: PropTypes.func,
   key: PropTypes.string.isRequired,
+  className: PropTypes.string,
 };
 
 const MemoizedListItem = memo(ListItem);
