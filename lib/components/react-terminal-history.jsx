@@ -168,7 +168,7 @@ function ReactTerminalHistory({
               containerStyle={{ overflowX: "auto" }}
               width={width}
               height={height}
-              rowCount={data.length}
+              rowCount={highlightedLogs?.length}
               rowHeight={22}
               scrollToIndex={scrollToIndex}
               noRowsRenderer={() => (
